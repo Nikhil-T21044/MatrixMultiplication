@@ -22,13 +22,13 @@ public class App {    // Main Application Class
 	
     public static void main(String args[]) {
     	System.out.println("Hello Java"); 
-    	int loop = 10;
+    	int loop = 5;
     	
     	int n = 128 ;
     	
     	while(loop-- > 0) {  // no of cases 
     		App instance = new App();
-    		n += 128; // incremental matrix size for cases
+    		n += 256; // incremental matrix size for cases
     		instance.generateInput(n);
     		
     		System.out.format("\n ============ Same matrix(" + n + ","+ n + ") with no of runs ============ \n");
