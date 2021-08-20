@@ -2,10 +2,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class App {    // Main Application Class
+	
+	/*
+	 * =========Class Members================
+	 * ======================================
+	 * */
 	private int[][] m1, m2, result_matrix, result_matrix_sync;
 	private ReentrantLock matrix_lock = new ReentrantLock();
 	private AtomicInteger[][] atomic_result_matrix;
     
+	/*
+	 * ===============Class Get/Set Methods================
+	 * ====================================================
+	 * */
 	public int[][] getm1(){		return m1;	}
 	public int[][] getm2(){		return m2;	}
 	public int[][] getResultMatrix(){		return result_matrix;	}
@@ -18,13 +27,17 @@ public class App {    // Main Application Class
 		}finally {
 			matrix_lock.unlock();
 		}
-		}
+	}
+	
+	/*
+	 * ===============Main Method================
+	 * ==========================================
+	 * */
 	
     public static void main(String args[]) {
-    	System.out.println("Hello Java"); 
-    	int loop = 5;
-    	
-    	int n = 128 ;
+    	System.out.println("Execution Started"); 
+    	int loop = 3;
+    	int n = 128 ; //size of dimension for square matrix generation
     	
     	while(loop-- > 0) {  // no of cases 
     		App instance = new App();
@@ -72,12 +85,21 @@ public class App {    // Main Application Class
     		
     		}
     		System.out.println();
-    		instance.printOutput(); // print only when matrix less than or equal   (10 X 10)
+    		instance.printOutput(); // print only when matrix size less than or equal   (10 X 10)
         }
 
     }
 
-    void generateInput(int n) { // Input Generation Module, can add another method also like getting input from file or console etc.
+    /*
+	 * ==============Class Methods==============
+	 * =========================================
+	 * */
+    
+    void generateInput(int n) { 
+    	/* 
+    	 * Input Generation Module, 
+    	 * can add another method also like getting input from file or console etc.
+    	 */
     	matrixGenerateThread mt1 = new matrixGenerateThread(n, n, true);
     	matrixGenerateThread mt2 = new matrixGenerateThread(n, n, true);
     	
@@ -221,16 +243,6 @@ public class App {    // Main Application Class
  		}
     }
 
-/*    int[][] generateMatrix(int m, int n){
-    	int[][] matrix = new int [m] [n];
-    	for (int i=0; i<m; i++) {
-    	    for (int j=0; j<n; j++) {
-    	        matrix[i][j] = (int) (Math.random()*10);
-    	    }           
-    	}
-    return matrix;	
-    }*/
-    
     void printMatrix(int[][] matrix) {
     	for (int i=0; i<matrix.length; i++) {
             for (int j=0; j<matrix[i].length; j++) {

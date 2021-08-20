@@ -1,5 +1,10 @@
 
 public class MatrixMultiplicationThread extends Thread {
+	
+	/*
+	 * =========Class Members================
+	 * ======================================
+	 * */
 	int m1,n1, m2, n2;
 	String tname;
 	int y;
@@ -11,7 +16,13 @@ public class MatrixMultiplicationThread extends Thread {
     boolean partialMethod = false;
     boolean atomicMethod  = false;
     
+    
+    /*
+	 * ==============Class Methods==============
+	 * =========================================
+	 * */
     public MatrixMultiplicationThread(int start_m, int start_n, int end_m, int end_n, App o, String name) {
+    	// Constructor for divide elements to thread method
 		m1= start_m;
 		n1= start_n;
 		m2= end_m;
@@ -24,6 +35,7 @@ public class MatrixMultiplicationThread extends Thread {
 	}
 
 	public MatrixMultiplicationThread(int start_m, int start_n, int[] block_dim, App o, String name) {
+		// Constructor for partial multiplication on Locks thread method
 		m1= start_m;
 		n1= start_n;
 		obj = o;
@@ -36,6 +48,7 @@ public class MatrixMultiplicationThread extends Thread {
 	}
     
 	public MatrixMultiplicationThread(int[] start_index, int[] block_dim, App o, String name) {
+		// Constructor for partial multiplication on Atomic Array thread method
 		m1= start_index[0];
 		n1= start_index[1];
 		obj = o;
@@ -48,7 +61,6 @@ public class MatrixMultiplicationThread extends Thread {
 	}
 
 	public void run() {
-//        System.out.format("Hello from EXTENDED thread! %s ==indexes== %d %d %d %d \n", tname, m1,n1, m2, n2);
         //  calculate value 
 		if(partialMethod || atomicMethod) {
 			partialmultiplication(m1, n1, block_dimension);
@@ -56,7 +68,6 @@ public class MatrixMultiplicationThread extends Thread {
 		}
 		matrixMultiplication(m1, n1, m2, n2);
     }
-
 
 	void matrixMultiplication(int m1, int n1, int m2, int n2) {
 		while(m1 <= m2 && m1 < size) {
@@ -69,12 +80,9 @@ public class MatrixMultiplicationThread extends Thread {
         }
 	}
 	
-
 	void partialmultiplication(int start_index_m, int start_index_n, int[] block_dimension){
 		int t1 = 0 , t2 = 0;
-//		System.out.format("=== %d %d\n", start_index_m, start_index_n);
 		while(t1 < block_dimension[0] ) {
-//			System.out.println();
 			while(t2 < size) {
 				setPartialValue(t1 + start_index_m, t2, block_dimension, start_index_m, start_index_n);
 				t2++;
